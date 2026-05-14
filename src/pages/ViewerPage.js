@@ -32,11 +32,24 @@ export default function ViewerPage() {
   const [teleportTarget, setTeleportTarget] = useState(null);
 
   useEffect(() => {
-    if (modelName) {
-      setModelUrl(`/models/${decodeURIComponent(modelName)}`);
-      setShowUpload(false);
-    }
-  }, [modelName]);
+  if (modelName) {
+    const url = `/models/${decodeURIComponent(modelName)}`;
+    fetch(url, { method: 'HEAD' })
+      .then((response) => {
+        if (response.ok) {
+          setModelUrl(url);
+          setShowUpload(false);
+        } else {
+          console.error('Model not found:', url);
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking model URL:', error);
+        navigate('/');
+      });
+  }
+}, [modelName, navigate]);
 
   const handleModelLoaded = (url) => {
     setModelUrl(url);
