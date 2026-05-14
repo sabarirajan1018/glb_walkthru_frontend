@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './UploadOverlay.css';
+import config from '../config';
 
 export default function UploadOverlay({ onModelLoaded, onClose }) {
   const [dragOver, setDragOver] = useState(false);
@@ -19,7 +20,7 @@ export default function UploadOverlay({ onModelLoaded, onClose }) {
     const formData = new FormData();
     formData.append('model', file);
     try {
-      const res = await axios.post('/api/models/upload', formData, {
+      const res = await axios.post(config.apiUrl('/models/upload'), formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (e) => setProgress(Math.round((e.loaded * 100) / e.total)),
       });

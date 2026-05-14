@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import axios from 'axios';
 import './ViewpointPanel.css';
+import config from '../config';
 
 // Inner component with Three context access
 function ViewpointPanelInner({ onClose, onTeleport }) {
@@ -17,7 +18,7 @@ function ViewpointPanelInner({ onClose, onTeleport }) {
 
   const fetchViewpoints = async () => {
     try {
-      const res = await axios.get('/api/viewpoints');
+      const res = await axios.get(config.apiUrl('/viewpoints'));
       setViewpoints(res.data.viewpoints);
     } catch {
       setError('Could not load viewpoints (MongoDB may be offline).');
@@ -30,7 +31,7 @@ function ViewpointPanelInner({ onClose, onTeleport }) {
     try {
       const pos = camera.position;
       const rot = camera.rotation;
-      await axios.post('/api/viewpoints', {
+      await axios.post(config.apiUrl('/viewpoints'), {
         name: name.trim(),
         position: { x: pos.x, y: pos.y, z: pos.z },
         rotation: { x: rot.x, y: rot.y, z: rot.z },
@@ -46,7 +47,7 @@ function ViewpointPanelInner({ onClose, onTeleport }) {
 
   const deleteViewpoint = async (id) => {
     try {
-      await axios.delete(`/api/viewpoints/${id}`);
+      await axios.delete(config.apiUrl(`/viewpoints/${id}`));
       setViewpoints((prev) => prev.filter((v) => v._id !== id));
     } catch {
       setError('Delete failed.');
@@ -67,7 +68,7 @@ export default function ViewpointPanel({ onClose, onTeleport }) {
 
   const fetchViewpoints = async () => {
     try {
-      const res = await axios.get('/api/viewpoints');
+      const res = await axios.get(config.apiUrl('/viewpoints'));
       setViewpoints(res.data.viewpoints);
     } catch {
       setError('Could not load viewpoints. Is MongoDB running?');
@@ -82,7 +83,7 @@ export default function ViewpointPanel({ onClose, onTeleport }) {
       // We can't access camera here directly, so we store a signal
       // The actual camera pos is captured by a useThree hook in the Canvas
       // For simplicity: save with placeholder, user teleports to it
-      await axios.post('/api/viewpoints', {
+      await axios.post(config.apiUrl('/viewpoints'), {
         name: name.trim(),
         position: { x: 0, y: 1.7, z: 5 },
         rotation: { x: 0, y: 0, z: 0 },
@@ -99,7 +100,7 @@ export default function ViewpointPanel({ onClose, onTeleport }) {
   const handleDelete = async (id, e) => {
     e.stopPropagation();
     try {
-      await axios.delete(`/api/viewpoints/${id}`);
+      await axios.delete(config.apiUrl(`/viewpoints/${id}`));
       setViewpoints((prev) => prev.filter((v) => v._id !== id));
     } catch {
       setError('Delete failed.');

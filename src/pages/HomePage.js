@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './HomePage.css';
+import config from '../config';
 
 export default function HomePage() {
   const [models, setModels] = useState([]);
@@ -18,7 +19,7 @@ export default function HomePage() {
 
   const fetchModels = async () => {
     try {
-      const res = await axios.get('/api/models');
+      const res = await axios.get(config.apiUrl('/models'));
       setModels(res.data.models);
     } catch {
       setError('Could not connect to server. Make sure the backend is running.');
@@ -37,7 +38,7 @@ export default function HomePage() {
     const formData = new FormData();
     formData.append('model', file);
     try {
-      await axios.post('/api/models/upload', formData, {
+      await axios.post(config.apiUrl('/models/upload'), formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (e) => setUploadProgress(Math.round((e.loaded * 100) / e.total)),
       });
@@ -54,7 +55,7 @@ export default function HomePage() {
     e.stopPropagation();
     if (!window.confirm(`Delete "${name}"?`)) return;
     try {
-      await axios.delete(`/api/models/${name}`);
+      await axios.delete(config.apiUrl(`/models/${name}`));
       setModels((prev) => prev.filter((m) => m.name !== name));
     } catch {
       setError('Delete failed.');

@@ -9,6 +9,7 @@ import HUD from '../components/HUD';
 import ViewpointPanel from '../components/ViewpointPanel';
 import UploadOverlay from '../components/UploadOverlay';
 import './ViewerPage.css';
+import config from '../config';
 
 function Loader() {
   const { progress } = useProgress();
@@ -33,13 +34,15 @@ export default function ViewerPage() {
 
   useEffect(() => {
     if (modelName) {
-      setModelUrl(`/models/${decodeURIComponent(modelName)}`);
+      setModelUrl(config.modelsUrl(decodeURIComponent(modelName)));
+
       setShowUpload(false);
     }
   }, [modelName]);
 
   const handleModelLoaded = (url) => {
-    setModelUrl(url);
+    setModelUrl(config.modelsUrl(decodeURIComponent(url )));
+
     setShowUpload(false);
   };
 
