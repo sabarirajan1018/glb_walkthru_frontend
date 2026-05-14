@@ -19,7 +19,7 @@ export default function UploadOverlay({ onModelLoaded, onClose }) {
     const formData = new FormData();
     formData.append('model', file);
     try {
-      const res = await axios.post('https://glb-walkthru-backend.onrender.com/api/models/upload', formData, {
+      const res = await axios.post('/api/models/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (e) => setProgress(Math.round((e.loaded * 100) / e.total)),
       });
