@@ -1,0 +1,119 @@
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  pointer-events: none;
+  font-family: 'Syne', sans-serif;
+}
+
+.hud__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(to bottom, rgba(10, 10, 15, 0.9), transparent);
+  pointer-events: all;
+}
+
+.hud__back {
+  background: rgba(17, 17, 24, 0.8);
+  border: 1px solid #2a2a3a;
+  color: #e8e4dc;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  backdrop-filter: blur(8px);
+}
+.hud__back:hover { border-color: #c8f03c; color: #c8f03c; }
+
+.hud__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #e8e4dc;
+  letter-spacing: -0.01em;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud__logo { color: #c8f03c; }
+
+.hud__viewpoints {
+  background: rgba(17, 17, 24, 0.8);
+  border: 1px solid #2a2a3a;
+  color: #e8e4dc;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  backdrop-filter: blur(8px);
+}
+.hud__viewpoints:hover { border-color: #3cf0c8; color: #3cf0c8; }
+
+/* Mode switcher */
+.hud__modes {
+  position: fixed;
+  top: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0;
+  background: rgba(17, 17, 24, 0.85);
+  border: 1px solid #2a2a3a;
+  border-radius: 50px;
+  padding: 4px;
+  backdrop-filter: blur(12px);
+  pointer-events: all;
+}
+
+.hud__mode {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  color: #6b6b80;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hud__mode:hover { color: #e8e4dc; }
+
+.hud__mode--active {
+  background: #c8f03c;
+  color: #0a0a0f;
+}
+
+.hud__mode-icon { font-size: 1rem; }
+
+.hud__walk-tip {
+  position: fixed;
+  top: 7.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(200, 240, 60, 0.7);
+  background: rgba(10, 10, 15, 0.6);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+}
